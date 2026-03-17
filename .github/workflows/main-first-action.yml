@@ -33,4 +33,8 @@ jobs:
         run: echo ${{ github.event_name }}
 
       - name: affichage des valeurs des variables
-        run: echo "variable 1 => $VAR_1" && echo "variable 2 => $VAR_2" && echo "variable 3 => $VAR_3" && echo "Fisrtname => $FIRSTNAME"
+        run: |
+          echo "variable 1 => $VAR_1" 
+          echo "variable 2 => $VAR_2" 
+          echo "variable 3 => $VAR_3"
+          echo "Fisrtname => $FIRSTNAME"
