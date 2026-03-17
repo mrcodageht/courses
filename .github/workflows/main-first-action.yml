@@ -21,13 +21,13 @@ jobs:
 
       - name: Recuperation du depot courant
         uses: actions/checkout@v6
-        run: ls
+      - run: ls
 
       - name: Recuperation du depot ftp module
         uses: actions/checkout@v6
         with:
           repository: 'mrcodageht/ftp-module'
-        run: ls
+      - run: ls
 
       - name: step event name
         run: echo ${{ github.event_name }}
