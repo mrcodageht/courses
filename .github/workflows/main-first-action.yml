@@ -7,9 +7,6 @@ env:
   VAR_1: from workflow
 
 jobs:
-  env: 
-    VAR_2: from jobs
-
   checkout:
     env: 
       VAR_3: from steps
