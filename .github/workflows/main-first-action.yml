@@ -8,5 +8,5 @@ jobs:
     steps:
       - run: ls
       - uses: actions/checkout@v6
-      - run: echo "listing apres la recuperation du depot"
       - run: ls
+      - run: echo ${{ github.workspace }}
