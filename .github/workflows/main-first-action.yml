@@ -22,7 +22,6 @@ jobs:
       - name: Recuperation du depot courant
         uses: actions/checkout@v6
         run: ls
-        run: echo ${{ github.workspace }}
 
       - name: Recuperation du depot ftp module
         uses: actions/checkout@v6
@@ -34,7 +33,4 @@ jobs:
         run: echo ${{ github.event_name }}
 
       - name: affichage des valeurs des variables
-        run: echo "variable 1 => $VAR_1"
-        run: echo "variable 2 => $VAR_2"
-        run: echo "variable 3 => $VAR_3"
-        run: echo "Fisrtname => $FIRSTNAME"
+        run: echo "variable 1 => $VAR_1" && echo "variable 2 => $VAR_2" && echo "variable 3 => $VAR_3" && echo "Fisrtname => $FIRSTNAME"
