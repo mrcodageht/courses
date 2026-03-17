@@ -9,13 +9,14 @@ env:
 jobs:
   checkout:
     env: 
-      VAR_3: from steps
+      VAR_2: from jobs
     runs-on: ubuntu-latest
 
     steps:
       - name: Greeting
         env:
           FIRSTNAME: Wesner
+          VAR_3: from step
         run: echo "Hello $FIRSTNAME"
 
       - name: Recuperation du depot courant
