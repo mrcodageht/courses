@@ -1,18 +1,32 @@
 name: ma premiere action
 
-on: push
+on: 
+  push:
+    branches:
+      - 'main'
+      - 'dev'
+      - 'release'
 
-# Declaration des variables avec un scope global
 env:
-  VAR_1: from workflow
+  VERSION: 1.0.0
 
 jobs:
-  lint:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "lancer le linter"
+      - name: recuperation depot git
+        uses: actions/checkout@v4
+
+      - name: Verifier la version
+        run: |
+          FILE_VERSION=$(cat VERSION)
+          [[ $VERSION -eq $FILE_VERSION ]]
+
+      - name: Installation des deps
+        run: echo "on lance npm install"
 
   release:
+    needs: build
     if: ${{ github.ref == 'refs/heads/release' }}
     env: 
       VAR_2: from step release
@@ -23,7 +37,7 @@ jobs:
   
   deploy:
     runs-on: ubuntu-latest
-    needs: lint
+    needs: build
     if: ${{ github.ref == 'refs/heads/main' }}
     steps:
       - run: echo "on fait un deploiement"
