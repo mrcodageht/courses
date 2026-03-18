@@ -20,7 +20,7 @@ jobs:
       - name: Verifier la version
         run: |
           FILE_VERSION=$(cat VERSION)
-          [[ $VERSION -eq $FILE_VERSION ]]
+          [[ $VERSION == $FILE_VERSION ]]
 
       - name: Installation des deps
         run: echo "on lance npm install"
