@@ -9,5 +9,5 @@ jobs:
         steps:
             - run: |
                 echo ::notice::Un message d'info
-                echo ::warning:: Message d'avertissement
-                echo ::error:: Message d'erreur
+                echo ::error::Message d'erreur
+                echo ::warning::Message d'avertissement
