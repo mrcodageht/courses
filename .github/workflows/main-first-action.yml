@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Verifier la version
-        if: ${{ github.ref == 'refs/heads/dev' || contains(github.ref, 'release' }}
+        if: ${{ contains(fromJSON('["refs/heads/dev", "refs/heads/release"]'), github.ref) }}
         run: |
           FILE_VERSION=$(cat VERSION)
           status=$([ $VERSION == $FILE_VERSION ] && exit 1 || exit 0) 
