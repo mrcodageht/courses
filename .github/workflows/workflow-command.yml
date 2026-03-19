@@ -1,0 +1,13 @@
+name: utilisation des commandes workflow
+
+on: 
+    push:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - run: |
+                echo ::notice::Un message d'info
+                echo ::warning:: Message d'avertissement
+                echo ::error:: Message d'erreur
