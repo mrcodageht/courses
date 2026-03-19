@@ -8,6 +8,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - run: |
-                echo ::notice::Un message d'info
-                echo ::error::Message d'erreur
-                echo ::warning::Message d'avertissement
+                echo ::notice::Un message info
+                echo ::error::Message erreur
+                echo ::warning::Message avertissement
