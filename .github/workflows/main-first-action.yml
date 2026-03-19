@@ -23,7 +23,7 @@ jobs:
         if: ${{ contains(fromJSON('["refs/heads/main", "refs/heads/release/**"]'), github.ref) }}
         run: |
           FILE_VERSION=$(cat VERSION)
-          [ $VERSION == $FILE_VERSION ] && echo ::error::la version n\'a pas ete incrementee $(exit 1)
+          [ $VERSION == $FILE_VERSION ] && echo ::error::la version n\'a pas ete incrementee $(exit 1) || echo ::notice::la version a bel et bien ete incrementee
       
       
 
