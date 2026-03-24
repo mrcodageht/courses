@@ -24,5 +24,5 @@ jobs:
           path: './vite-project/.npm'
       
       - name: installation des deps
-        run: npm ci --cache .npm
+        run: npm ci --cache .npm --prefer-offline
         working-directory: ./vite-project
