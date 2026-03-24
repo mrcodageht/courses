@@ -1,0 +1,28 @@
+name: cache pour une app avec nodejs (npm)
+
+on: 
+  push:
+    branches:
+      - 'main'
+      - '**/release/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: installation de nodejs
+        id: install-nodejs
+        uses: actions/setup-node@v4
+
+      - name: recuperation du depot
+        uses: actions/checkout@v6
+
+      - name: mise en place de la cache
+        uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-${{hashFiles('./vite-project/package-lock.json')}}
+          path: './vite-project/.npm'
+      
+      - name: installation des deps
+        run: npm ci --cache .npm
+        working-directory: ./vite-project
