@@ -30,7 +30,7 @@ jobs:
         run: |
           FILE_VERSION=$(cat VERSION)
           [ $VERSION == $FILE_VERSION ] && echo ::error::la version n\'a pas ete incrementee || echo ''
-          [ $VERSION == $FILE_VERSION ] && exit 1 || exit 0
+          [ $VERSION == $FILE_VERSION ] && exit 1 || echo ''
           
           echo "$VERSION" > VERSION
 
