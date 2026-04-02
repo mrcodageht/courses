@@ -1,0 +1,61 @@
+name: CI/CD workflow
+
+env: 
+  SERVER_IP: "100.69.91.51"
+  SERVER_USER: "ubuntu"
+
+on: 
+  push:
+    branches: 'pipeline/dyma-projet-1'
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run: 
+        working-directory: ./server
+    steps:
+      - name: checkout le code
+        uses: actions/checkout@v6
+      - name: installer nodejs
+        uses: actions/setup-node@v6
+        with:
+          cache: "npm"
+          cache-dependency-path: "./server/package-lock.json"
+      - name: installer les dependances
+        run: |
+          npm ci --cache .npm --prefer-offline
+      - name: verifie le code
+        run: |
+          npm run lint
+      - name: verifie les vulnerabilites des dependances
+        run: |
+          npm run audit
+      - name: execter les tests
+        run: |
+          npm run test:ci
+  
+  deploy:
+    needs: tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout le code
+        uses: actions/checkout@v6
+        
+      - name: installer taiscale pour communiquer avec le vps
+        uses: tailscale/github-action@v4
+        with: 
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{secrets.TS_OAUTH_CLIENT_SECRET}}
+          tags: tag:workflow
+           
+      - name: deployer sur le serveur
+        run: |
+          eval "$(ssh-agent -s)"
+          ssh-add - <<< "${{ secrets.SSH_KEY_VPS }}"
+          mkdir -p ~/.ssh
+          ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
+          scp -r ./server $SERVER_USER@SERVER_IP:/var/www
+          ssh $SERVER_USER@SERVER_IP "/var/www/server && npm install --omit=dev"
+          ssh $SERVER_USER@SERVER_IP "cd /var/www/server && startOrRestart ecosystem.config.js --env=production && pm2 save"
+
