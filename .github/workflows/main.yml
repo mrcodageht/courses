@@ -30,7 +30,7 @@ jobs:
           npm run lint
       - name: verifie les vulnerabilites des dependances
         run: |
-          npm run audit
+          npm audit
       - name: execter les tests
         run: |
           npm run test:ci
