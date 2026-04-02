@@ -1,0 +1,23 @@
+name: test de tailscale dans un workflow
+
+on: 
+    push: 
+        branches: 'pipeline/dyma-projet-1'
+
+jobs:
+    tailscale-ping:
+        runs-on: ubuntu-latest
+        steps:
+            - name: setup de tailscale
+              uses: tailscale/github-actions@v4
+              with: 
+                oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+                oauth-secret: ${{secrets.TS_OAUTH_CLIENT_SECRET}}
+                tags: tag:workflow
+
+            - name: ping du vps vpn
+              run: |
+                ping -c3 vpn
+
+         
+                
