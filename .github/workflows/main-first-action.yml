@@ -7,27 +7,32 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
-    steps:
-        - run: echo mise a jour du projet ${{ github.repository }}
-        - name: utilisation d'une action
-          uses: mrcodageht/courses/.github/actions/deploy@main
-        
-        - uses: tailscale/github-action@v4
-          with:
-            oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
-            oauth-secret: ${{secrets.TS_OAUTH_CLIENT_SECRET}}
-            tags: tag:workflow
-        
-        - name: checkout du repo
-          uses: actions/checkout@v6
+    env:
+      HOST: vpn
+      SECRET_KEY: ${{ secrets.SSH_KEY_VPS }}
+      USER: ${{ vars.VPS_USER }}
+      DEST_PATH: /home/${{ vars.VPS_USER }}
 
-        - uses: mrcodageht/courses/.github/actions/deploy@main
-          with:
-            use-tailscale: true
-            host: 'vpn'
-            secret-key: ${{ secrets.SSH_KEY_VPS }}
-            user: ${{ vars.VPS_USER }}
-            dest-path: '/home/${{ vars.VPS_USER }}'
+    steps:
+      - run: echo mise a jour du projet ${{ github.repository }}
+      
+      
+      - uses: tailscale/github-action@v4
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{secrets.TS_OAUTH_CLIENT_SECRET}}
+          tags: tag:workflow
+      
+      - name: checkout du repo
+        uses: actions/checkout@v6
+
+      - uses: mrcodageht/courses/.github/actions/deploy@main
+        with:
+          use-tailscale: true
+          host: ${{ env.HOST }}
+          secret-key: ${{ env.SECRET_KEY }}
+          user: ${{ env.USER }}
+          dest-path: ${{ env.DEST_PATH}}
 
 
           
