@@ -1,0 +1,41 @@
+name: Build and deploy courses docs
+
+on: 
+  push: 
+    branches: [ansible]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: recuperation du code
+        uses: actions/checkout@v5
+
+      - name: installation de python
+        uses: actions/setup-python@v6
+
+      - name: mise en place de l'env et l'activer
+        run: |
+          python -m venv venv
+          source ./venv/bin/activate
+
+      - name: mise en place de la cache
+        uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-pip-${{hashFiles('**/requirements.txt')}}
+          path: '~/.cache/pip'
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      
+      - name: installation des deps
+        run: pip install --cache-dir ~/.cache/pip -r requirements.txt
+        working-directory: .
+      
+      - name: build and create artefacts
+        run: |
+          mkdocs build
+
+
+      
+            
+          
