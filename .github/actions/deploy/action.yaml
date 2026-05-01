@@ -50,7 +50,7 @@ runs:
         mkdir -p ~/.ssh
         ssh-keyscan -H ${{ inputs.host }} >> ~/.ssh/known_hosts
         scp -r ${{ inputs.compose-filename }} ${{ inputs.user }}@${{ inputs.host }}:${{ inputs.dest-path }}/${{ inputs.compose-filename }}
-        ssh ${{ inputs.user }}@${{ inputs.server_ip }} "docker login ghcr.io -u ${{ github.actor }} -p ${{ inputs.token_github }} &&
+        ssh ${{ inputs.user }}@${{ inputs.host }} "docker login ghcr.io -u ${{ github.actor }} -p ${{ inputs.token_github }} &&
           docker compose -f ${{ inputs.dest-path }}/${{ inputs.compose-filename }} up -d --force-recreate"
     
       
