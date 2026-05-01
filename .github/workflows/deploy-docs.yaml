@@ -28,7 +28,7 @@ jobs:
             ${{ runner.os }}-pip-
       
       - name: installation des deps
-        run: pip install --cache-dir ~/.cache/pip requirements.txt
+        run: pip install --cache-dir ~/.cache/pip -r requirements.txt
         working-directory: .
       
       - name: build and create artefacts
