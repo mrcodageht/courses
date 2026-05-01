@@ -10,7 +10,7 @@ jobs:
     env:
       HOST: vpn
       SECRET_KEY: ${{ secrets.SSH_KEY_VPS }}
-      USER: ${{ vars.VPS_USER }}
+      USER_VPS: ${{ vars.VPS_USER }}
       DEST_PATH: /home/${{ vars.VPS_USER }}
 
     steps:
@@ -29,10 +29,13 @@ jobs:
       - uses: mrcodageht/courses/.github/actions/deploy@main
         with:
           use-tailscale: true
-          host: ${{ env.HOST }}
-          secret-key: ${{ env.SECRET_KEY }}
-          user: ${{ env.USER }}
-          dest-path: ${{ env.DEST_PATH}}
+          host: $HOST
+          secret-key: $SECRET_KEY
+          user: $USER_VPS
+          dest-path: $DEST_PATH
+          docker-password: ${{ secrets.GITHUB_TOKEN }}
+          
+
 
 
           
