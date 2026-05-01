@@ -10,10 +10,13 @@ inputs:
 runs:
   using: composite
   steps:
-    - 
-      name: verification des parametres
+    - name: deployment without tailscale
       shell: bash
-      run: |
-        echo "use_tailscale => ${{ inputs.use-tailscale }}"
+      if: ${{ inputs.use-tailscale == 'false' }}
+      run: echo "deploiement without tailscale"
 
-    
+    - name: deploiement with tailscale
+      shell: bash
+      if: ${{ inputs.use-tailscale == 'true' }}
+      run: echo "deploiement with tailscale"
+      

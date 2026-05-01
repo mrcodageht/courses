@@ -11,5 +11,8 @@ jobs:
         - run: echo mise a jour du projet ${{ github.repository }}
         - name: utilisation d'une action
           uses: mrcodageht/courses/.github/actions/deploy@main
+        - uses: mrcodageht/courses/.github/actions/deploy@main
+          with:
+            use-tailscale: true
           
 
