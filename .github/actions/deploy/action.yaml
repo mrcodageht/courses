@@ -46,7 +46,7 @@ runs:
       shell: bash
       run: |
         eval $(ssh-agent -s)
-        ssh-add - <<< "${{ inputs.secret_key }}"
+        ssh-add - <<< "${{ inputs.secret-key }}"
         mkdir -p ~/.ssh
         ssh-keyscan -H ${{ inputs.host }} >> ~/.ssh/known_hosts
         scp -r ${{ inputs.compose-filename }} ${{ inputs.user }}@${{ inputs.host }}:${{ inputs.dest-path }}/${{ inputs.compose-filename }}
