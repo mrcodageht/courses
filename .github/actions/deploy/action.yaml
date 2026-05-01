@@ -18,5 +18,15 @@ runs:
     - name: deploiement with tailscale
       shell: bash
       if: ${{ inputs.use-tailscale == 'true' }}
-      run: echo "deploiement with tailscale"
+      run: |
+        echo "deploiement with tailscale"
+        echo Verification du version tailscale
+
+        tailscale version --json > tailscale.json
+    
+    - name: summarize
+      shell: bash
+      if: ${{ failure() && inputs.use-tailscale == 'true' }} 
+      run: |
+        echo "echec du pipeline tailscale n'a pas ete installe sur le runner"
       
