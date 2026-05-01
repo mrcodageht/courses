@@ -28,7 +28,6 @@ jobs:
 
       - uses: mrcodageht/courses/.github/actions/deploy@main
         with:
-          use-tailscale: true
           host: $HOST
           secret-key: $SECRET_KEY
           user: $USER_VPS

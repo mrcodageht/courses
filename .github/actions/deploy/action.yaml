@@ -2,10 +2,6 @@ name: Deploiement
 description: Action pour effectuer un deploiement sur un serveur
 
 inputs: 
-  use-tailscale: 
-    description: ce parametre permet de specifier si on doit acceder via un reseau tailscale sur le vps
-    required: false
-    default: 'false'
   host:
     description: adresse ip ou nom d'hote du serveur
     required: true
@@ -38,21 +34,7 @@ inputs:
 
 runs:
   using: composite
-  steps:
-    - name: deployment without tailscale
-      shell: bash
-      if: ${{ inputs.use-tailscale == 'false' }}
-      run: echo "deploiement without tailscale"
-
-    - name: deploiement with tailscale
-      shell: bash
-      if: ${{ inputs.use-tailscale == 'true' }}
-      run: |
-        echo "deploiement with tailscale"
-        echo Verification du version tailscale
-
-        tailscale version --json > tailscale.json
-    
+  steps:    
     - name: deploy on the server
       shell: bash
       run: |
