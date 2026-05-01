@@ -1,11 +1,13 @@
-name: ma premiere action
+name: Utilisation d'action perso
 
 on: 
   push:
+    branches: ['main']
   
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
         - run: echo mise a jour du projet ${{ github.repository }}
- 
+        - name: utilisation d'une action
+          uses: mrcodageht/courses/.github/actions/deploy@main
