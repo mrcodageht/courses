@@ -1,0 +1,21 @@
+name: Deploiement
+description: Action pour effectuer un deploiement sur un serveur
+
+inputs: 
+  use-tailscale: 
+    description: ce parametre permet de specifier si on doit acceder via un reseau tailscale sur le vps
+    required: false
+    default: 'false'
+
+runs:
+  using: composite
+  steps:
+    - name: Dump GitHub context
+      shell: bash
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
+    - name: verification des parametres
+      shell: bash
+      run: |
+        echo "On va faire un deploiement sur un serveur avec l'action Deploiement"
