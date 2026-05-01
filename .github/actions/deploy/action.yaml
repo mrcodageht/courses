@@ -10,12 +10,10 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Dump GitHub context
-      shell: bash
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: echo "$GITHUB_CONTEXT"
-    - name: verification des parametres
+    - 
+      name: verification des parametres
       shell: bash
       run: |
-        echo "On va faire un deploiement sur un serveur avec l'action Deploiement"
+        echo "use_tailscale => ${{ inputs.use_tailscale }}"
+
+    
