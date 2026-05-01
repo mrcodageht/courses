@@ -17,9 +17,18 @@ jobs:
             oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
             oauth-secret: ${{secrets.TS_OAUTH_CLIENT_SECRET}}
             tags: tag:workflow
+        
+        - name: checkout du repo
+          uses: actions/checkout@v6
 
         - uses: mrcodageht/courses/.github/actions/deploy@main
           with:
             use-tailscale: true
+            host: 'vpn'
+            secret-key: ${{ secrets.SSH_KEY_VPS }}
+            user: ${{ vars.VPS_USER }}
+            dest-path: '/home/${{ vars.VPS_USER }}'
+
+
           
 

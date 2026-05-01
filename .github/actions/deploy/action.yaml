@@ -6,6 +6,24 @@ inputs:
     description: ce parametre permet de specifier si on doit acceder via un reseau tailscale sur le vps
     required: false
     default: 'false'
+  host:
+    description: adresse ip ou nom d'hote du serveur
+    required: true
+  secret-key:
+    description: Cle secrete pour l'authentification ssh
+    required: true
+  compose-filename:
+    description: le nom du fichier docker compose a utiliser
+    required: false
+    default: 'docker-compose.yaml'
+  user:
+    description: Le nom de l'utiliser de l'utilisateur a utiliser sur le serveur
+    required: false
+    default: 'root'
+  dest-path:
+    description: Le chemin absolue ou on doit copier le fichier sur le serveur en scp
+    required: false
+    default: '/root'
 
 runs:
   using: composite
@@ -24,9 +42,15 @@ runs:
 
         tailscale version --json > tailscale.json
     
-    - name: summarize
+    - name: deploy on the server
       shell: bash
-      if: ${{ failure() && inputs.use-tailscale == 'true' }} 
       run: |
-        echo "echec du pipeline tailscale n'a pas ete installe sur le runner"
+        eval $(ssh-agent -s)
+        ssh-add - <<< "${{ inputs.secret_key }}"
+        mkdir -p ~/.ssh
+        ssh-keyscan -H ${{ inputs.host }} >> ~/.ssh/known_hosts
+        scp -r ${{ inputs.compose-filename }} ${{ inputs.user }}@${{ inputs.host }}:${{ inputs.dest-path }}/${{ inputs.compose-filename }}
+        ssh ${{ inputs.user }}@${{ inputs.server_ip }} "docker login ghcr.io -u ${{ github.actor }} -p ${{ inputs.token_github }} &&
+          docker compose -f ${{ inputs.dest-path }}/${{ inputs.compose-filename }} up -d --force-recreate"
+    
       
