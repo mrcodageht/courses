@@ -41,7 +41,7 @@ jobs:
           cache-to: type=gha,mode=max
           tags: |
             ${{ env.IMAGE_TAG }}:latest
-            ${{ env.IMAGE_TAG }}:${GITHUB_SHA::12}
+            ${{ env.IMAGE_TAG }}:${GITHUB_SHA:0:12}
 
 
       
