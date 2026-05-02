@@ -1,0 +1,6 @@
+services:
+  docs:
+    container_name: docs
+    image: ghcr.io/mrcodageht/mrcodageht/courses/docs:latest
+    ports:
+      - '9100:80'
