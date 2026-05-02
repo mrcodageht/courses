@@ -42,13 +42,7 @@ jobs:
           push: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
-<<<<<<< HEAD
-          tags: |
-            ${{ env.IMAGE_TAG }}:latest
-            ${{ env.IMAGE_TAG }}:${GITHUB_SHA:0:12}
-=======
           tags: ${{ steps.meta.outputs.tags }}
->>>>>>> 2cf3e45 (fix: mise a jour du pipeline)
 
 
       
