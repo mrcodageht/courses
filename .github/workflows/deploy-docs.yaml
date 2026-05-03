@@ -9,6 +9,9 @@ env:
 on: 
   push: 
     branches: [docs]
+    
+permissions:
+  packages: read
 
 jobs:
   build:
@@ -79,7 +82,7 @@ jobs:
           user: $USER_VPS
           dest-path: $DEST_PATH
           docker-registry: ghcr.io
-          docker-password: ${{ secrets.GITHUB_TOKEN }}
+          docker-password: ${{ secrets.TOKEN_PACKAGES_GITHUB }}
 
 
       
