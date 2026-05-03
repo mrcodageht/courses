@@ -10,9 +10,6 @@ on:
   push: 
     branches: [docs]
     
-permissions:
-  packages: read
-
 jobs:
   build:
     runs-on: ubuntu-latest
