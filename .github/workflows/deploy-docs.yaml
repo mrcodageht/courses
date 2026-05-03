@@ -78,6 +78,7 @@ jobs:
           secret-key: $SECRET_KEY
           user: $USER_VPS
           dest-path: $DEST_PATH
+          docker-registry: ghcr.io
           docker-password: ${{ secrets.GITHUB_TOKEN }}
 
 
