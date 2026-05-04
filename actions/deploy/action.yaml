@@ -1,0 +1,50 @@
+name: Deploiement
+description: Action pour effectuer un deploiement sur un serveur
+
+inputs: 
+  host:
+    description: adresse ip ou nom d'hote du serveur
+    required: true
+  secret-key:
+    description: Cle secrete pour l'authentification ssh
+    required: true
+  compose-filename:
+    description: le nom du fichier docker compose a utiliser
+    required: false
+    default: 'docker-compose.yaml'
+  user:
+    description: Le nom de l'utiliser de l'utilisateur a utiliser sur le serveur
+    required: false
+    default: 'root'
+  dest-path:
+    description: Le chemin absolue ou on doit copier le fichier sur le serveur en scp
+    required: false
+    default: '/root'
+  docker-username:
+    description: le nom d'utilisateur pour se connecter sur le registre de docker
+    required: false
+    default: '${{ github.actor }}'
+  docker-password:
+    description: le mot de passe de l'utilisateur pour se connecter sur le registre docker
+    required: true
+  docker-registry:
+    description: Le registre docker a se connecter
+    required: false
+    default: 'ghcr.io'
+
+runs:
+  using: composite
+  steps:    
+    - name: deploy on the server
+      shell: bash
+      run: |
+        eval $(ssh-agent -s)
+        ssh-add - <<< "${{ inputs.secret-key }}"
+        mkdir -p ~/.ssh
+        ssh-keyscan -H ${{ inputs.host }} >> ~/.ssh/known_hosts
+        ssh ${{ inputs.user }}@${{ inputs.host }} "mkdir -p ${{ inputs.dest-path }}"
+        scp -r ${{ inputs.compose-filename }} ${{ inputs.user }}@${{ inputs.host }}:${{ inputs.dest-path }}/${{ inputs.compose-filename }}
+        ssh ${{ inputs.user }}@${{ inputs.host }} "docker login ${{ inputs.docker-registry }} -u ${{ inputs.docker-username }} -p ${{ inputs.docker-password }} &&
+          docker compose -f ${{ inputs.dest-path }}/${{ inputs.compose-filename }} up -d --force-recreate"
+    
+      
