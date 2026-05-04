@@ -11,3 +11,8 @@ services:
       - "traefik.http.routers.docs.service=docs-service"
       # Définition du service avec le suffixe 'api-service'
       - "traefik.http.services.docs.loadbalancer.server.port=80"
+    networks:
+      - traefik-proxy-network
+networks:
+  traefik-proxy-network:
+    external: true
