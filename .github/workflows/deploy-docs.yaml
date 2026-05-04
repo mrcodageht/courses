@@ -4,7 +4,7 @@ env:
   HOST: vpn
   SECRET_KEY: ${{ secrets.SSH_KEY_VPS }}
   USER_VPS: ${{ vars.VPS_USER }}
-  DEST_PATH: /home/${{ vars.VPS_USER }}/${{ github.repository }}
+  DEST_PATH: /home/${{ vars.VPS_USER }}/${{ github.repository }}/${{ github.ref_name }}
 
 on: 
   push: 
@@ -66,7 +66,7 @@ jobs:
       - uses: tailscale/github-action@v4
         with:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
-          oauth-secret: ${{secrets.TS_OAUTH_CLIENT_SECRET}}
+          oauth-secret: ${{ secrets.TS_OAUTH_CLIENT_SECRET }}
           tags: tag:workflow
         
       - name: checkout du repo
