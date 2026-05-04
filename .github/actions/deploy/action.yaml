@@ -42,6 +42,7 @@ runs:
         ssh-add - <<< "${{ inputs.secret-key }}"
         mkdir -p ~/.ssh
         ssh-keyscan -H ${{ inputs.host }} >> ~/.ssh/known_hosts
+        ssh ${{ inputs.user }}@${{ inputs.host }} "mkdir -p ${{ inputs.dest-path }}"
         scp -r ${{ inputs.compose-filename }} ${{ inputs.user }}@${{ inputs.host }}:${{ inputs.dest-path }}/${{ inputs.compose-filename }}
         ssh ${{ inputs.user }}@${{ inputs.host }} "docker login ${{ inputs.docker-registry }} -u ${{ inputs.docker-username }} -p ${{ inputs.docker-password }} &&
           docker compose -f ${{ inputs.dest-path }}/${{ inputs.compose-filename }} up -d --force-recreate"
