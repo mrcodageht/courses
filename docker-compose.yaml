@@ -4,12 +4,7 @@ services:
     image: ghcr.io/mrcodageht/mrcodageht/courses/docs:latest
     labels:
       - "traefik.enable=true"
-      # Définition du routeur avec le suffixe 'api-router'
       - "traefik.http.routers.docs.rule=Host(`docs.app.mrccommunity.com`)"
-      - "traefik.http.routers.docs.entrypoints=websecure"
-      # Liaison au service via son suffixe 'api-service'
-      - "traefik.http.routers.docs.service=docs-service"
-      # Définition du service avec le suffixe 'api-service'
       - "traefik.http.services.docs.loadbalancer.server.port=80"
     networks:
       - traefik-proxy-network
