@@ -4,7 +4,7 @@ env:
   HOST: vpn
   SECRET_KEY: ${{ secrets.SSH_KEY_VPS }}
   USER_VPS: ${{ vars.VPS_USER }}
-  DEST_PATH: /home/${{ vars.VPS_USER }}
+  DEST_PATH: /home/${{ vars.VPS_USER }}/${{ github.repository }}
 
 on: 
   push: 
