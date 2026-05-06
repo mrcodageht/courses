@@ -44,9 +44,7 @@ jobs:
       - name: tag names
         run: |
           echo "${{ steps.meta.outputs.tag-names }}"
-           echo "${{ steps.meta.outputs.tag-names[0] }}"
-          echo "${{ steps.meta.outputs.tag-names[1] }}"
-
+           echo "${{ steps.meta.outputs.json}}"
 
       - name: Build and push
         uses: docker/build-push-action@v7
