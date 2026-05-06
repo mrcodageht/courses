@@ -4,7 +4,7 @@ env:
   HOST: vpn
   SECRET_KEY: ${{ secrets.SSH_KEY_VPS }}
   USER_VPS: ${{ vars.VPS_USER }}
-  DEST_PATH: /home/${{ vars.VPS_USER }}/${{ github.repository }}/${{ github.ref_name }}
+  DEST_PATH: /workspace/${{ github.repository }}/${{ github.ref_name }}
 
 on: 
   push: 
@@ -17,7 +17,7 @@ jobs:
       IMAGE_TAG: ghcr.io/mrcodageht/${{ github.repository }}/docs
     steps:
       - name: recuperation du code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v4
@@ -53,22 +53,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: recuperation du code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v4
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.TOKEN_PACKAGES_GITHUB }}
       - uses: tailscale/github-action@v4
         with:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_CLIENT_SECRET }}
           tags: tag:workflow
-        
-      - name: checkout du repo
-        uses: actions/checkout@v6
 
       - uses: mrcodageht/courses/actions/deploy@main
         with:
