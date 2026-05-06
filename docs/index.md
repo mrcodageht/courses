@@ -1,17 +1,7 @@
-# Welcome to MkDocs
+# MrCodage Docs
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+Bienvenue dans la documentation de MrCodage
 
-## Commands
+Je regroupe les differentes notes de certaines technos que j'ai appris ou j'appends actuellement ce qui me permettra d'acceder a des notions deja et de les utilisees dans des projets futurs.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
-
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+Les docs seront a jours tant que c'est possible

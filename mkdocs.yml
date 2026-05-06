@@ -1,4 +1,4 @@
-site_name: My site
+site_name: MrCodage Docs
 site_url: http://localhost/docs
 theme:
   name: material
@@ -24,7 +24,18 @@ theme:
   features:
     - navigation.instant
     - navigation.instant.progress
+    - content.code.copy
+    - content.code.select
+    - toc.integrate 
   language: fr 
 
 plugins:
   - search
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
