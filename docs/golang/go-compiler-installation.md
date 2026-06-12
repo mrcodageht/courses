@@ -28,9 +28,7 @@ Go sera installé dans le répertoire `/usr/local/go`, et l'installeur ajoutera 
 
 content\_copy
 
-```
-brew install go
-```
+    brew install go
 
 ### `**Linux**`
 
@@ -38,18 +36,15 @@ Utilisation de `Snap` :
 
 content\_copy
 
-```
-sudo snap install core
-sudo snap refresh core
-```
+    sudo snap install core
+    sudo snap refresh core
+    
 
 Installation de `Go` :
 
 content\_copy
 
-```
-sudo snap install go --classic
-```
+    sudo snap install go --classic
 
 Méthode alternative :
 
@@ -59,18 +54,14 @@ La méthode manuelle via l'archive vous donne un contrôle total sur la version 
 
 content\_copy
 
-```
-# Remplacez le nom du fichier par la dernière version stable disponible
-wget https://go.dev/dl/go1.25.0.linux-amd64.tar.gz
-```
+    # Remplacez le nom du fichier par la dernière version stable disponible
+    wget https://go.dev/dl/go1.25.0.linux-amd64.tar.gz
 
 **Vérifiez l'intégrité de l'archive** en comparant la somme de contrôle `SHA256` affichée sur le site de téléchargement avec celle de votre fichier :
 
 content\_copy
 
-```
-sha256sum go1.25.0.linux-amd64.tar.gz
-```
+    sha256sum go1.25.0.linux-amd64.tar.gz
 
 **Extrayez l'archive dans `/usr/local`**.
 
@@ -78,10 +69,8 @@ Ce répertoire est la convention standard pour les logiciels installés manuelle
 
 content\_copy
 
-```
-# Supprime toute ancienne installation et extrait la nouvelle
-sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.25.0.linux-amd64.tar.gz
-```
+    # Supprime toute ancienne installation et extrait la nouvelle
+    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.25.0.linux-amd64.tar.gz
 
 **Ajoutez `Go` à la variable d'environnement `PATH`**.
 
@@ -89,10 +78,8 @@ Pour rendre la commande `go` accessible depuis n'importe quel répertoire, vous
 
 content\_copy
 
-```
-# Ajoute cette ligne à la fin de votre fichier ~/.profile ou ~/.bashrc
-export PATH=$PATH:/usr/local/go/bin
-```
+    # Ajoute cette ligne à la fin de votre fichier ~/.profile ou ~/.bashrc
+    export PATH=$PATH:/usr/local/go/bin
 
 Pour appliquer les changements immédiatement, rechargez votre fichier de profil avec `source ~/.profile` ou fermez et rouvrez simplement votre terminal.
 
@@ -106,9 +93,7 @@ Tapez la commande suivante pour afficher la version de `Go` installée :
 
 content\_copy
 
-```
-go version
-```
+    go version
 
 La sortie devrait ressembler à ceci, confirmant que le système a trouvé l'exécutable Go : `go version go1.25.0 linux/amd64`
 
@@ -116,9 +101,7 @@ Ensuite, explorez la configuration de l'environnement Go avec la commande :
 
 content\_copy
 
-```
-go env
-```
+    go env
 
 Cette commande affiche une liste de variables importantes. Pour un débutant, les plus pertinentes sont :
 
