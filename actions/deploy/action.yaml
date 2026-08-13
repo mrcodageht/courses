@@ -38,7 +38,7 @@ runs:
     - name: deploy on the server
       shell: bash
       run: |
-        eval $(ssh-agent -s)
+        eval "$(ssh-agent -s)"
         ssh-add - <<< "${{ inputs.secret-key }}"
         mkdir -p ~/.ssh
         ssh-keyscan -H ${{ inputs.host }} >> ~/.ssh/known_hosts
